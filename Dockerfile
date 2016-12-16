@@ -5,6 +5,8 @@ ENV BARRNAP_VERSION f1289ffceabe40de93ac033cf88851761e55646b
 ENV DPRED_VERSION   0.1.0
 ENV MASH_VERSION    1.1.1
 
+ENV DOMAIN_DB /usr/local/domain_db/
+
 ADD image /usr/local/
 
 RUN install.sh && rm -r /usr/local/bin/install.sh /usr/local/bin/install
