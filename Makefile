@@ -6,6 +6,7 @@ ssh: .image
 	docker run \
 		--tty \
 		--interactive \
+		--volume=$(shell pwd)/tmp:/mount:ro \
 		--entrypoint=/bin/bash \
 		$(image)
 
