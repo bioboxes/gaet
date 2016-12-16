@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
-BUILD_DEPENDENCIES="\
+NON_ESSENTIAL_BUILD_DEPENDENCIES="\
 	ca-certificates \
 	g++ \
 	python-dev \
@@ -24,21 +24,22 @@ RUNTIME_DEPENDENCIES="\
 	python-minimal"
 
 apt-get update
-apt-get install --yes --no-install-recommends ${BUILD_DEPENDENCIES}
+apt-get install --yes --no-install-recommends ${NON_ESSENTIAL_BUILD_DEPENDENCIES}
 
 export PATH=${PATH}:/usr/local/bin/install
 
 # Install dependendencies
-prokka.sh
 domain_predictor.sh
+prokka.sh
+gaet.sh
 
 # Clean up dependencies
-# apt-get autoremove --purge --yes ${BUILD_DEPENDENCIES}
-# apt-get clean
+apt-get autoremove --purge --yes ${NON_ESSENTIAL_BUILD_DEPENDENCIES}
+apt-get clean
 
-# Ensure RUNTIME_DEPENDENCIES are installed after purging BUILD_DEPENDENCIES
+# Ensure required dependencies are installed after purging NON_ESSENTIAL_BUILD_DEPENDENCIES
 apt-get install --yes --no-install-recommends ${RUNTIME_DEPENDENCIES}
-# rm -rf /var/lib/apt/lists/*
+rm -rf /var/lib/apt/lists/*
 
 # Build prokka database
 prokka --setupdb
