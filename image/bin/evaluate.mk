@@ -8,11 +8,13 @@ references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | .va
 contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value) | join(" ")')
 
 
-assembly.yml: assembly.gff reference.gff
-	gaet --reference reference.gff assembly.gff
+assembly.yml: reference.gff assembly.gff
+	gaet --reference $<
 
 %.gff: %.fa domain.txt
-	prokka --cpus $(nproc) $< --kingdom=$(shell cat domain.txt)
+	prokka --compliant --cpus $(shell nproc) $< --kingdom=$(shell cat domain.txt)
+	mv PROKKA*/*.gff $@
+	rm -rf PROKKA*
 
 domain.txt: reference.msh
 	d_predict predict \
