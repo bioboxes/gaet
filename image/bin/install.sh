@@ -20,7 +20,9 @@ RUNTIME_DEPENDENCIES="\
 	libdigest-md5-perl \
 	libidn11 \
 	libxml-simple-perl \
+	make \
 	openjdk-7-jre-headless \
+	parallel \
 	python-minimal"
 
 apt-get update
