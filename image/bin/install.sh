@@ -23,7 +23,9 @@ RUNTIME_DEPENDENCIES="\
 	make \
 	openjdk-7-jre-headless \
 	parallel \
-	python-minimal"
+	python-minimal \
+	python-pkg-resources
+	python-six"
 
 apt-get update
 apt-get install --yes --no-install-recommends ${NON_ESSENTIAL_BUILD_DEPENDENCIES}
