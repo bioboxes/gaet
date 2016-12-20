@@ -12,7 +12,7 @@ contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value)
 	jq -r '[leaf_paths as $$path | {"key": $$path | join(".") | gsub("\\W+"; "_"), "value": getpath($$path)}] | map("\(.key)\t\(.value )") | join("\n")' $< > $@
 
 %.json: %.yml
-	yaml2json $< > $@
+	yaml2json < $< > $@
 
 assembly.yml: reference.gff assembly.gff
 	gaet --reference $^ --output $@
