@@ -11,7 +11,7 @@ contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value)
 /bbx/output/metrics.tsv: assembly.json
 	jq -r '[leaf_paths as $$path | {"key": $$path | join(".") | gsub("\\W+"; "_"), "value": getpath($$path)}] | map("\(.key)\t\(.value )") | join("\n")' $< > $@
 
-%.json: %.yml:
+%.json: %.yml
 	yaml2json $< > $@
 
 assembly.yml: reference.gff assembly.gff
