@@ -8,6 +8,12 @@ references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | .va
 contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value) | join(" ")')
 
 
+/bbx/output/metrics.tsv: assembly.json
+	jq -r '[leaf_paths as $$path | {"key": $$path | join(".") | gsub("\\W+"; "_"), "value": getpath($$path)}] | map("\(.key)\t\(.value )") | join("\n")' $< > $@
+
+%.json: %.yml:
+	yaml2json $< > $@
+
 assembly.yml: reference.gff assembly.gff
 	gaet --reference $^ --output $@
 
