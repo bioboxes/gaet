@@ -4,7 +4,7 @@ KMER	 = 21
 SIZE	 = 10000
 COVERAGE = 1 # Set coverage to be 1-fold because mash seg-faults for small genomes otherwise
 
-references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | .value + "/"' | xargs -I {} find {} -type f)
+references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | map(.value) | join(" ")' | xargs -I {} find {} -type f)
 contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value) | join(" ")')
 
 
