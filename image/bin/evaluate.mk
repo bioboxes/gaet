@@ -8,6 +8,12 @@ references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | map
 contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value) | join(" ")')
 
 
+/bbx/output/biobox.yaml: \
+	/usr/local/share/biobox.yaml \
+	/bbx/output/metrics.tsv \
+	/bbx/output/metrics.yaml
+	cp $< $@
+
 /bbx/output/metrics.tsv: assembly.json
 	jq -r '[leaf_paths as $$path | {"key": $$path | join(".") | gsub("\\s+"; "_"), "value": getpath($$path)}] | map("\(.key)\t\(.value )") | join("\n")' $< > $@
 

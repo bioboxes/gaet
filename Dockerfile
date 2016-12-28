@@ -11,3 +11,8 @@ ENV DOMAIN_DB /usr/local/domain_db/
 ADD image /usr/local/
 
 RUN install.sh && rm -r /usr/local/bin/install.sh /usr/local/bin/install
+
+ENV SCHEMA /usr/local/share/schema.yml
+ENV BIOBOX_EXEC evaluate.mk
+
+WORKDIR /root
