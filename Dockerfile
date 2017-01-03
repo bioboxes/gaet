@@ -13,6 +13,6 @@ ADD image /usr/local/
 RUN install.sh && rm -r /usr/local/bin/install.sh /usr/local/bin/install
 
 ENV SCHEMA /usr/local/share/schema.yml
-ENV BIOBOX_EXEC evaluate.mk
+ENV BIOBOX_EXEC run.sh
 
 WORKDIR /root
