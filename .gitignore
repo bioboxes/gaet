@@ -1,2 +1,5 @@
 .image
 tmp
+vendor
+biobox_verify
+log
