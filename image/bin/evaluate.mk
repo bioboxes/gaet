@@ -7,7 +7,6 @@ COVERAGE = 1 # Set coverage to be 1-fold because mash seg-faults for small genom
 references = $(shell biobox_args.sh 'select(has("fasta_dir")) | .fasta_dir | map(.value) | join(" ")' | xargs -I {} find {} -type f)
 contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value) | join(" ")')
 
-
 /bbx/output/biobox.yaml: \
 	/usr/local/share/biobox.yaml \
 	/bbx/output/metrics.tsv \
