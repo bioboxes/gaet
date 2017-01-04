@@ -24,6 +24,7 @@ contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value)
 
 assembly.yml: reference.gff assembly.gff
 	gaet --reference $^ --output $@
+	sed -i 's/null/0/' $@
 
 %.gff: %.fa domain.txt
 	prokka --compliant --cpus $(shell nproc) $< --kingdom=$(shell cat domain.txt)
