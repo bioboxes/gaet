@@ -20,7 +20,7 @@ contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value)
 	cp $< $@
 
 %.json: %.yml
-	yaml2json < $< > $@
+	yaml2json < $< | sed 's/58S/5_8S/g' > $@
 
 assembly.yml: reference.gff assembly.gff
 	gaet --reference $^ --output $@
