@@ -13,14 +13,18 @@ contigs    = $(shell biobox_args.sh 'select(has("fasta")) | .fasta | map(.value)
 	/bbx/output/metrics.yaml
 	cp $< $@
 
-/bbx/output/metrics.tsv: assembly.json
-	jq -r '[leaf_paths as $$path | {"key": $$path | join(".") | gsub("\\s+"; "_"), "value": getpath($$path)}] | map("\(.key)\t\(.value )") | join("\n")' $< > $@
+/bbx/output/metrics.tsv: /bbx/output/metrics.yaml
+	yaml2csv \
+		--input $< \
+		--output $@ \
+		--sort \
+		--strict-keys \
+		--convert-bools \
+		--downcase
+	sed -i 's/,/	/' $@
 
 /bbx/output/metrics.yaml: assembly.yml
 	cp $< $@
-
-%.json: %.yml
-	yaml2json < $< | sed 's/58S/5_8S/g' > $@
 
 assembly.yml: reference.gff assembly.gff
 	gaet --reference $^ --output $@
