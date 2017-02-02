@@ -36,6 +36,7 @@ export PATH=${PATH}:/usr/local/bin/install
 domain_predictor.sh
 prokka.sh
 gaet.sh
+yaml2csv.sh
 
 # Clean up dependencies
 apt-get autoremove --purge --yes ${NON_ESSENTIAL_BUILD_DEPENDENCIES}
